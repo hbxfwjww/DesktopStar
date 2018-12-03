@@ -96,7 +96,7 @@
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=流星无语;LegalTrademarks=;OriginalFilename=;ProgramID=com.star.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=在桌面显示计算机名、IP地址等信息</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=流星无语;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=流星无语;LegalTrademarks=;OriginalFilename=;ProgramID=com.star.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=在桌面显示计算机名、IP地址等信息</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -126,6 +126,7 @@
                     <Source Name="MainSource">DesktopStar.dpr</Source>
                 </Source>
                 <Excluded_Packages>
+                    <Excluded_Packages Name="K:\Code\Delphi\Components\Database\unidac70src\UniDAC\Bin\Delphi25\Win64\unidacfmx250.bpl">Devart Universal Data Access GUI FMX related Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k250.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp250.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>

@@ -4,18 +4,18 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, system.uitypes,
   System.IniFiles, IdStackWindows, IdStack, IdGlobal, Vcl.AppEvnts;
 
 type
   TfrmMain = class(TForm)
     lblComputerName: TLabel;
     lblIPAddress: TLabel;
-    lblTime: TLabel;
     tmrUI: TTimer;
     ApplicationEvents1: TApplicationEvents;
     procedure tmrUITimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     x,y,fontSize,fontColor,fontBold:Integer;
     fontName:string;
@@ -28,6 +28,7 @@ var
   frmMain: TfrmMain;
   sExePath:string;
   hLastDesktop:THandle;
+  gAppMutex:THandle;
 implementation
 
 {$R *.dfm}
@@ -44,8 +45,11 @@ end;
 
 function findDesktopWnd:THandle;
 begin
-  Result:=FindWindowEx(FindWindow('Progman', nil), 0,
-      'shelldll_defview', nil);
+  Result:=FindWindow('Progman','Program Manager');
+  if Result=0 then exit;
+  Result:=FindWindowEx(Result,0,'SHELLDLL_DefView','');
+//  if Result=0 then exit;
+//  Result:=FindWindowEx(Result,0,'SysListView32','FolderView');
 end;
 
 
@@ -85,8 +89,12 @@ begin
   if fontBold=1 then
     Font.Style := Font.Style + [fsbold];
   lblComputerName.Caption := wGetComputerName;
-  lblTime.Caption := 'Wait...';
   lblIPAddress.Caption := 'Wait...';
+end;
+
+procedure TfrmMain.FormDestroy(Sender: TObject);
+begin
+  ReleaseMutex(gAppMutex);
 end;
 
 procedure TfrmMain.ReadConfig;
@@ -111,7 +119,6 @@ var
   fStack:TIdStackWindows;
 begin
   fixUI;
-  lblTime.Caption := TimeToStr(Now);
   fStack := TIdStackWindows.Create;
   try
     lblIPAddress.Caption := fStack.LocalAddress;

@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 0
   AlphaBlend = True
   BorderStyle = bsNone
-  ClientHeight = 94
+  ClientHeight = 67
   ClientWidth = 188
   Color = clWhite
   TransparentColor = True
@@ -16,6 +16,7 @@ object frmMain: TfrmMain
   Font.Style = []
   OldCreateOrder = False
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 20
   object lblComputerName: TLabel
@@ -35,15 +36,6 @@ object frmMain: TfrmMain
     Alignment = taCenter
     AutoSize = False
     Caption = 'IP'
-  end
-  object lblTime: TLabel
-    Left = 0
-    Top = 64
-    Width = 180
-    Height = 18
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'Time'
   end
   object tmrUI: TTimer
     OnTimer = tmrUITimer
